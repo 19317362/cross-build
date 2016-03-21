@@ -4,10 +4,8 @@
 set -e
 
 PREFIX=/usr/local
-PARALLEL_MAKE=-j4
+PARALLEL_MAKE=-j
 CONFIGURATION_OPTIONS="--disable-multilib --disable-nls"
-
-BINUTILS_VERSION=binutils-2.26
 
 mkdir -p build-binutils-all
 cd build-binutils-all

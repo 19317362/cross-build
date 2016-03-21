@@ -6,10 +6,10 @@ RUN apt-get install -y build-essential vim git zsh wget libgmp3-dev libmpfr-dev 
 
 WORKDIR /tmp
 
-BINUTILS_VERSION=binutils-2.26
-GCC_VERSION=gcc-4.4.7
-LINUX_KERNEL_VERSION=linux-4.2
-GLIBC_VERSION=glibc-2.23
+ENV BINUTILS_VERSION binutils-2.25
+ENV GCC_VERSION gcc-4.8.5
+ENV LINUX_KERNEL_VERSION linux-4.2
+ENV GLIBC_VERSION glibc-2.23
 
 RUN wget -nc http://ftp.jaist.ac.jp/pub/GNU/binutils/$BINUTILS_VERSION.tar.gz
 RUN wget -nc http://ftp.jaist.ac.jp/pub/GNU/gcc/$GCC_VERSION/$GCC_VERSION.tar.gz
@@ -43,9 +43,9 @@ RUN ./build.sh m68k-linux-gnu m68k
 RUN ./build.sh i686-linux-gnu x86
 # RUN ./build.sh x86_64-linux-gnu x86
 # RUN ./build.sh cris-linux-gnu cris
-# RUN ./build.sh sh4-linux-gnu sh
-RUN ./build.sh sparc-linux-gnu sparc
-RUN ./build.sh sparc64-linux-gnu sparc
+RUN ./build.sh sh4-linux-gnu sh
+# RUN ./build.sh sparc-linux-gnu sparc
+# RUN ./build.sh sparc64-linux-gnu sparc
 
 # ALL BINUTILS
 ADD build-binutils-all.sh /tmp
@@ -65,29 +65,33 @@ ADD build-gdb.sh /tmp
 RUN chmod +x /tmp/build-gdb.sh
 
 RUN ./build-gdb.sh alpha-elf
-RUN ./build-gdb.sh arc-elf
+# RUN ./build-gdb.sh arc-elf
 RUN ./build-gdb.sh arm-elf
 RUN ./build-gdb.sh avr-elf
 RUN ./build-gdb.sh bfin-elf
 RUN ./build-gdb.sh cris-elf
-RUN ./build-gdb.sh crx-elf
+# RUN ./build-gdb.sh crx-elf
 RUN ./build-gdb.sh fr30-elf
 RUN ./build-gdb.sh frv-elf
 RUN ./build-gdb.sh h8300-elf
 RUN ./build-gdb.sh m32c-elf
 RUN ./build-gdb.sh m32r-elf
 RUN ./build-gdb.sh m6811-elf
-RUN ./build-gdb.sh mcore-elf
+# RUN ./build-gdb.sh mcore-elf
 RUN ./build-gdb.sh mips64-elf
 RUN ./build-gdb.sh mips16-elf
 RUN ./build-gdb.sh mips-elf
-RUN ./build-gdb.sh moxie-elf
+# RUN ./build-gdb.sh moxie-elf
 RUN ./build-gdb.sh mn10300-elf
 RUN ./build-gdb.sh powerpc-elf
 RUN ./build-gdb.sh sh-elf
-RUN ./build-gdb.sh sh64-elf
-RUN ./build-gdb.sh sparc-elf
+# RUN ./build-gdb.sh sh64-elf
+# RUN ./build-gdb.sh sparc-elf
 RUN ./build-gdb.sh v850-elf
 RUN ./build-gdb.sh vax-netbsdelf
+
+# Cleanup
+# RUN rm -rf /tmp
+RUN apt-get clean
 
 CMD ["/bin/bash"]
